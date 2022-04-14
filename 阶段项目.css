@@ -1,0 +1,114 @@
+*{
+    font-size: 16px;
+    margin: 0;
+    padding: 0; 
+}
+.iconfont{
+    font-family: "iconfont";
+    font-style: normal;
+}
+.wrap{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    background-color: rgb(186, 222, 243);
+}
+.top{
+    height: 7vh;
+    padding: 0 15px;
+    padding-top: 20px;
+    display: flex;
+}
+.back{
+    font-size: 30px;
+    position: absolute;
+    display: none;
+}
+.location{
+    margin: 0 auto;
+}
+.content{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search{
+    position: relative;
+}
+.search .iconfont{
+    position: relative;
+    right: 32px;
+}
+.input{
+    text-indent: 2em;
+    font-size: 18px;
+    width: 80vw;
+    border:3px solid #dfdbdb;
+    border-radius: 14px;
+}
+.suggestion{
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+.content-future{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.content-future > div > div{
+    margin: 10px 0;
+    border-bottom:  2px solid rgb(202, 202, 202);
+}
+.content-life > div {
+    display: flex;
+    justify-content: center;
+}
+.content-life > div > div{
+    width: 200px;
+    height: 170px;
+    border: 2px solid silver;
+}
+.lifesta{
+    font-size: 20px;
+}
+.lifesug{
+    margin: 10px 0px;
+}
+.lifeicon{
+    font-family: 'iconfont';
+    font-size: 60px;
+    font-style: normal;
+}
+.nav{
+    display: flex;
+    justify-content: space-around;
+}
+.navbtns{
+    color: black;
+}
+.navbtnsselect{
+    color: yellow;
+}
+.history{
+    width: 75vw;
+    margin-top: 3px;
+    margin-left: 3px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    background-color: white;
+    display: none;
+    position: absolute;
+}
+.history > div{
+    margin: 2px 0;
+    padding: 0 5px;
+    border-bottom: 1px solid #dfdbdb;
+    display: none;
+    justify-content: space-between;
+}
+.guanbi{
+    font-size: 20px;
+}
