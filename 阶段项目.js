@@ -22,6 +22,19 @@ const his_wrap = document.querySelectorAll('.history > div')
 const his_item = document.querySelectorAll('.history-item')
 const guanbi = document.querySelectorAll('.guanbi')
 let hissum = 0
+//历史记录重复
+function testrepeat(){
+    let text = 0
+    for(let k =0;k<his_item.length;k++){
+        
+        if(input.value == his_item[k].innerText){
+            text++
+        }
+    }
+    if(text > 0){
+        return true
+    }
+}
 //define 搜索函数
 const getplace = (cities) => {
     return new Promise((resolve, reject) => {
@@ -95,6 +108,7 @@ window.onkeydown = function (ev){
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
+
                 his_item[hissum].innerText = today.city
                 his_wrap[hissum].style.display = 'flex'
                 if(hissum == 5){hissum = 0}
@@ -122,7 +136,6 @@ searchicon.onclick = ()=>{
         })
         getplace(input.value)
         .then((today) => {
-            console.log(today.city);
             if(today.city == undefined){
                 alert('查询失败！请核对城市名称是否输入正确')
                 search.style.display = 'block'
@@ -135,10 +148,14 @@ searchicon.onclick = ()=>{
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-                his_item[hissum].innerText = today.city
-                his_wrap[hissum].style.display = 'flex'
-                if(hissum == 5){hissum = 0}
-                hissum++
+                testrep = testrepeat()
+                if(testrep != true){
+                    his_item[hissum].innerText = today.city
+                    his_wrap[hissum].style.display = 'flex'
+                    if(hissum == 5){hissum = 0}
+                    hissum++
+                }
+                
             }
         })
 }
