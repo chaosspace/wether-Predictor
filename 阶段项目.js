@@ -23,6 +23,7 @@ const his_item = document.querySelectorAll('.history-item')
 const guanbi = document.querySelectorAll('.guanbi')
 let hissum = 0
 let hisindex = 4
+let reveal = 'fal'
 //历史记录重复
 function testrepeat(){
     let text = 0
@@ -233,6 +234,19 @@ input.onfocus = function(){
     }
 }
 //历史记录消失
+his.onclick = () => {
+    reveal = 'tr'
+}
+window.onmousedown = () => {
+    setTimeout(() =>{
+        if(reveal == 'tr'){
+            reveal = 'fal'
+        }else{
+            his.style.display = 'none'
+        }
+    },100)
+    
+}
 //清除历史记录
 for(let i = 0;i<guanbi.length;i++){
     guanbi[i].onclick = () => {
