@@ -22,6 +22,7 @@ const his_wrap = document.querySelectorAll('.history > div')
 const his_item = document.querySelectorAll('.history-item')
 const guanbi = document.querySelectorAll('.guanbi')
 let hissum = 0
+let hisindex = 4
 //历史记录重复
 function testrepeat(){
     let text = 0
@@ -108,11 +109,21 @@ window.onkeydown = function (ev){
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-
-                his_item[hissum].innerText = today.city
-                his_wrap[hissum].style.display = 'flex'
-                if(hissum == 5){hissum = 0}
+                his_item[hisindex].innerText = today.city
+                his_wrap[hisindex].style.display = 'flex'
                 hissum++
+                hisindex--
+                if(hisindex < 0){
+                    
+                    hisindex = 0
+                }
+                if(hissum > 5){
+                    for(let i = 4;i > 0;i--){
+                        his_item[i].innerText = his_item[i-1].innerText
+                    }
+                    his_item[0].innerText = today.city
+                    hissum = 5
+                }
             }
         })
     }
@@ -148,14 +159,20 @@ searchicon.onclick = ()=>{
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-                testrep = testrepeat()
-                if(testrep != true){
-                    his_item[hissum].innerText = today.city
-                    his_wrap[hissum].style.display = 'flex'
-                    if(hissum == 5){hissum = 0}
-                    hissum++
+                his_item[hisindex].innerText = today.city
+                his_wrap[hisindex].style.display = 'flex'
+                hissum++
+                hisindex--
+                if(hisindex < 0){
+                    hisindex = 0
                 }
-                
+                if(hissum > 5){
+                    for(let i = 4;i > 0;i--){
+                        his_item[i].innerText = his_item[i-1].innerText
+                    }
+                    his_item[0].innerText = today.city
+                    hissum = 5
+                }
             }
         })
 }
