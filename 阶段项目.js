@@ -22,19 +22,23 @@ const his_wrap = document.querySelectorAll('.history > div')
 const his_item = document.querySelectorAll('.history-item')
 const guanbi = document.querySelectorAll('.guanbi')
 let hissum = 0
-let hisindex = 4
 let reveal = 'fal'
-//历史记录重复
-function testrepeat(){
-    let text = 0
-    for(let k =0;k<his_item.length;k++){
-        
-        if(input.value == his_item[k].innerText){
-            text++
+//历史记录显示
+function hisreveal (){
+    for(let o = 0;o < 5;o++){
+        if(his_item[o].innerText == ""){
+            his_wrap[o].style.display = "none"
+        }else{
+            his_wrap[o].style.display = "flex"
         }
     }
-    if(text > 0){
-        return true
+}
+//历史记录重复
+function testrepeat(){
+    for(let k =0;k<his_item.length;k++){
+        if(input.value == his_item[k].innerText){
+            return k
+        }
     }
 }
 //define 搜索函数
@@ -80,6 +84,7 @@ let index = 0;
 window.onkeydown = function (ev){
     let event = ev
     if(event.keyCode == 13){
+        his.style.display = 'none'
         search.style.display = 'none'
         back.style.display = 'block'
         getfuture(input.value)
@@ -104,27 +109,30 @@ window.onkeydown = function (ev){
                 back.style.display = 'none'
                 input.value = null
             }else{
+                let testrep = testrepeat()
                 index = 1
                 navs[1].className = 'navbtnsselect'
                 place.innerText = today.city
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-                his_item[hisindex].innerText = today.city
-                his_wrap[hisindex].style.display = 'flex'
-                hissum++
-                hisindex--
-                if(hisindex < 0){
-                    
-                    hisindex = 0
-                }
-                if(hissum > 5){
+                if(testrep !== undefined){
+                    for(let l = testrep;l <= 1;l--){
+                        his_item[l].innerText = his_item[l-1].innerText
+                    }
+                    his_item[0].innerText = his_item[testrep].innerText
+                    his_item[testrep].innerText = ""
+                }else{
                     for(let i = 4;i > 0;i--){
                         his_item[i].innerText = his_item[i-1].innerText
                     }
                     his_item[0].innerText = today.city
-                    hissum = 5
+                    hissum++
+                    if(hissum > 5){
+                        hissum = 5
+                    }
                 }
+                hisreveal()
             }
         })
     }
@@ -154,26 +162,30 @@ searchicon.onclick = ()=>{
                 back.style.display = 'none'
                 input.value = null
             }else{
+                let testrep = testrepeat()
                 index = 1
                 navs[1].className = 'navbtnsselect'
                 place.innerText = today.city
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-                his_item[hisindex].innerText = today.city
-                his_wrap[hisindex].style.display = 'flex'
-                hissum++
-                hisindex--
-                if(hisindex < 0){
-                    hisindex = 0
-                }
-                if(hissum > 5){
+                if(testrep !== undefined){
+                    for(let l = testrep;l <= 1;l--){
+                        his_item[l].innerText = his_item[l-1].innerText
+                    }
+                    his_item[0].innerText = his_item[testrep].innerText
+                    his_item[testrep].innerText = ""
+                }else{
                     for(let i = 4;i > 0;i--){
                         his_item[i].innerText = his_item[i-1].innerText
                     }
                     his_item[0].innerText = today.city
-                    hissum = 5
+                    hissum++
+                    if(hissum > 5){
+                        hissum = 5
+                    }
                 }
+                hisreveal()
             }
         })
 }
@@ -227,8 +239,9 @@ back.onclick = ()=>{
         navs[k].className = 'navbtns'
     }
 }
-//历史记录显示
+//历史记录框显示
 input.onfocus = function(){
+    reveal = 'tr'
     if(hissum > 0){
         his.style.display = 'block'  
     }
@@ -244,15 +257,20 @@ window.onmousedown = () => {
         }else{
             his.style.display = 'none'
         }
-    },100)
-    
+    },10)
 }
 //清除历史记录
 for(let i = 0;i<guanbi.length;i++){
     guanbi[i].onclick = () => {
-        his_wrap[i].style.display = 'none'
-        his.style.display = 'none'
+        for(let l = i;l<4;l++){
+            his_item[l].innerText = his_item[l+1].innerText
+        }
         hissum--
+        hisreveal()
+        console.log(hissum);
+        if(hissum == 0){
+            his.style.display = 'none'
+        }
     }
 }
 //点击历史记录
@@ -289,10 +307,11 @@ for(let i = 0;i < his_item.length;i++){
                 todayinf.style.display = 'block'
                 temper.innerText = today.tem + '℃'
                 wind.innerText = today.win
-                his_item[hissum].innerText = today.city
-                his_wrap[hissum].style.display = 'flex'
-                if(hissum == 5){hissum = 0}
-                hissum++
+                for(let l = i;l >= 1;l--){
+                    his_item[l].innerText = his_item[l-1].innerText
+                }
+                his_item[0].innerText = today.city
+                hisreveal()
             }
         })
     }
